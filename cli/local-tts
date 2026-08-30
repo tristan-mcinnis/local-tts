@@ -1,0 +1,77 @@
+#!/bin/bash
+# local-tts — thin client for the Local TTS service (127.0.0.1:8081, on-device)
+# Part of the local-models layer: one registry, warm services, thin clients.
+set -euo pipefail
+
+BASE="${LOCAL_TTS_URL:-http://127.0.0.1:8081}"
+VOICES_DIR="${LOCAL_TTS_VOICES_DIR:-$HOME/Documents/code/local-tts/voices}"
+VOICE="${LOCAL_TTS_VOICE:-vctk-p225.wav}"
+OUT=""
+PLAY=0
+TEXT_PARTS=()
+
+die() { echo "local-tts: $*" >&2; exit 1; }
+
+usage() {
+cat <<'EOF'
+local-tts — speak with the local TTS service (on-device, nothing uploaded)
+
+usage:
+  local-tts [options] TEXT...        synthesize TEXT to a WAV file
+  echo "text" | local-tts [options]  read text from stdin
+  local-tts --list                   list available voices
+  local-tts --health                 check the service
+
+options:
+  -o, --out FILE     output path (default: /tmp/local-tts-<epoch>.wav)
+  -p, --play         play the result through the speakers (afplay)
+  -v, --voice NAME   voice sample from the voices dir (default: vctk-p225);
+                     bare names get .wav appended
+  -h, --help         this help
+
+env overrides: LOCAL_TTS_URL, LOCAL_TTS_VOICE, LOCAL_TTS_VOICES_DIR
+
+Add a voice: drop a 6-15s clean single-speaker WAV into the voices dir and
+pass --voice <name>. Only use voices you own or have consent to use.
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -o|--out)   OUT="$2"; shift 2 ;;
+    -p|--play)  PLAY=1; shift ;;
+    -v|--voice) VOICE="$2"; shift 2 ;;
+    --list)     ls "$VOICES_DIR" 2>/dev/null | grep '\.wav$' | sed 's/\.wav$//' ; exit 0 ;;
+    --health)   curl -sf "$BASE/health" && echo; exit 0 ;;
+    -h|--help)  usage; exit 0 ;;
+    -*)         die "unknown option: $1 (try --help)" ;;
+    *)          TEXT_PARTS+=("$1"); shift ;;
+  esac
+done
+
+if [[ ${#TEXT_PARTS[@]} -gt 0 ]]; then
+  TEXT="${TEXT_PARTS[*]}"
+elif [[ ! -t 0 ]]; then
+  TEXT="$(cat)"
+else
+  usage
+  exit 1
+fi
+[[ -n "${TEXT//[[:space:]]/}" ]] || die "empty text"
+
+[[ "$VOICE" == *.wav ]] || VOICE="$VOICE.wav"
+[[ -n "$OUT" ]] || OUT="/tmp/local-tts-$(date +%s).wav"
+
+PAYLOAD="$(TEXT="$TEXT" VOICE="$VOICE" python3 -c \
+  'import json,os;print(json.dumps({"input":os.environ["TEXT"],"voice":os.environ["VOICE"]}))')"
+
+if ! curl -sf -X POST "$BASE/v1/audio/speech" -H "Content-Type: application/json" \
+     -d "$PAYLOAD" --output "$OUT"; then
+  die "synthesis failed — is the service up? try: local-tts --health, or
+  launchctl kickstart -k gui/\$(id -u)/com.tristan.local-tts"
+fi
+
+echo "$OUT"
+if [[ "$PLAY" == 1 ]]; then
+  afplay "$OUT"
+fi
