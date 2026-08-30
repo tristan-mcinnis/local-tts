@@ -14,6 +14,10 @@ pocket-tts
 *.lib
 *.exe
 
+# Model bundle lives in the shared store (~/Models/pocket-tts); models/ is a
+# machine-local symlink there. Regenerate with tools/prepare_models.sh.
+/models
+
 # ONNX models (too large for git — download from HuggingFace)
 models/*.onnx
 

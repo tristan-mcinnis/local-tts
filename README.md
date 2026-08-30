@@ -1,10 +1,19 @@
-# PocketTTS-RAVEN ☠
+# Local TTS
 
 **Faster-than-realtime voice cloning and text-to-speech — on CPU, in one C++ file, and in your browser.**
 
-## ☠ [Live Demo → pantel.is/projects/pocket-tts-raven](https://pantel.is/projects/pocket-tts-raven/)
+Local TTS is the text-to-speech organ of the local-models layer: the model
+bundle lives in `~/Models/pocket-tts/` and is registered in
+`~/Models/models.json`, and the engine runs as an always-on localhost service
+(launchd agent `com.tristan.local-tts`) with an OpenAI-compatible
+`/v1/audio/speech` endpoint. Nothing is uploaded, ever.
 
-<br>
+Forked from [pkalogiros/pocket-tts-raven](https://github.com/pkalogiros/pocket-tts-raven)
+(MIT), a heavily optimized runtime for [Kyutai's Pocket TTS](https://github.com/kyutai-labs/pocket-tts)
+on ONNX Runtime. All upstream credit goes to Pantelis Kalogiros and Kyutai
+Labs; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and
+[Acknowledgments](#acknowledgments). Upstream demo:
+[pantel.is/projects/pocket-tts-raven](https://pantel.is/projects/pocket-tts-raven/).
 
 A heavily optimized runtime for [Kyutai's Pocket TTS](https://github.com/kyutai-labs/pocket-tts) on ONNX Runtime:
 

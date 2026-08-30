@@ -1,9 +1,13 @@
-# PocketTTS-RAVEN — Agent Guide
+# Local TTS — Agent Guide
 
 Faster-than-realtime voice cloning and TTS on CPU: one C++ file around stock
-ONNX Runtime, plus a WASM build for the browser. This is an **external clone**
-(origin: github.com/pkalogiros/pocket-tts-raven) kept as a reference for
-Tristan's local-TTS work. Do not push; do not fork-ify it.
+ONNX Runtime, plus a WASM build for the browser. This is **Tristan's project**
+(private repo `tristan-mcinnis/local-tts`), forked from
+`pkalogiros/pocket-tts-raven` (kept as the `upstream` remote for pulling
+improvements). It is the TTS organ of the local-models layer: weights live in
+the shared store at `~/Models/pocket-tts/` (registered in
+`~/Models/models.json`), and the engine runs as an always-on localhost service
+via launchd agent `com.tristan.local-tts`.
 
 ## Orientation
 
@@ -24,7 +28,7 @@ Tristan's local-TTS work. Do not push; do not fork-ify it.
 | `tools/make_*.py` | offline ONNX graph rewrites (delta-KV, dedup, merged flow, custom-op injection) |
 | `tools/prepare_models.sh` | one-time model download (hash-verified) + rewrite pipeline |
 | `tools/verify_model_equivalence.py` | lockstep checker for staged graph changes |
-| `models/` | prepared ONNX models + tokenizer (generated, not hand-edited) |
+| `models/` | symlink to `~/Models/pocket-tts/` — the prepared ONNX bundle + tokenizer (generated, not hand-edited) |
 | `voices/` | voice samples; `voices/.cache/` holds `.emb` and `.kv` caches |
 | `webdemo/` | WASM browser demo (vendored build in `webdemo/vendor/ptt/`) |
 
@@ -76,9 +80,14 @@ them.
 
 ## Repo hygiene
 
-- External clone per `code-atlas.yaml` (`external_clone: true`) — exempt from
-  the private-remote rules, but treat upstream as read-only.
+- Own project, private repo. `origin` = tristan-mcinnis/local-tts (push
+  freely), `upstream` = pkalogiros/pocket-tts-raven (read-only; pull
+  improvements with `git fetch upstream`). Forked 2026-08-30, MIT, attribution
+  kept in README + THIRD_PARTY_NOTICES.
 - Large binaries (`libonnxruntime*.dylib`, `pocket-tts`, models, voices
   cache) are gitignored or expected local artifacts; do not commit them.
+- Model weights are shared-layer state, not repo state: regenerate with
+  `tools/prepare_models.sh` (lands in `~/Models/pocket-tts/` via the `models/`
+  symlink), never commit them.
 - License: MIT (`LICENSE`), third-party attribution in
   `THIRD_PARTY_NOTICES.md` (notably lame.js, LGPL).

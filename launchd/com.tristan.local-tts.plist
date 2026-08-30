@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.tristan.local-tts</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Users/tristan/Documents/code/local-tts/pocket-tts</string>
+		<string>--server</string>
+		<string>--port</string>
+		<string>8081</string>
+		<string>--models-dir</string>
+		<string>/Users/tristan/Models/pocket-tts</string>
+		<string>--voices-dir</string>
+		<string>/Users/tristan/Documents/code/local-tts/voices</string>
+		<string>--tokenizer</string>
+		<string>/Users/tristan/Models/pocket-tts/tokenizer.model</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>KeepAlive</key>
+	<true/>
+	<key>ThrottleInterval</key>
+	<integer>5</integer>
+	<key>StandardOutPath</key>
+	<string>/Users/tristan/Library/Logs/local-tts.log</string>
+	<key>StandardErrorPath</key>
+	<string>/Users/tristan/Library/Logs/local-tts.err.log</string>
+</dict>
+</plist>
