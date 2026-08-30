@@ -124,7 +124,6 @@ set(SENTENCEPIECE_INCLUDE_DIRS "${sentencepiece_SOURCE_DIR}/src")
 FetchContent_Declare(dr_libs
     GIT_REPOSITORY https://github.com/mackron/dr_libs.git
     GIT_TAG cd99e2cca5ccb48f8d000f1cd844424dcdbbaf59 # dr_libs pinned
-    GIT_SHALLOW TRUE
 )
 FetchContent_MakeAvailable(dr_libs)
 
