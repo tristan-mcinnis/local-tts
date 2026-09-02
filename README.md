@@ -136,8 +136,7 @@ the script) and applies the graph-rewrite pipeline locally — delta-KV
 caches, custom attention ops, cross-layer dedup, merged flow. The pipeline is
 deterministic; delta-KV steps run built-in ORT equivalence checks, and
 `tools/verify_model_equivalence.py` is the lockstep checker for staged model
-changes. `models/README.md` and `webdemo/models/README.md` list what lands
-where. The rewrite scripts themselves live in `tools/` and are documented in
+changes. `webdemo/models/README.md` lists what the web set contains. The rewrite scripts themselves live in `tools/` and are documented in
 [docs/OPTIMIZATION_NOTES.md](docs/OPTIMIZATION_NOTES.md).
 
 ## CLI
@@ -161,12 +160,18 @@ where. The rewrite scripts themselves live in `tools/` and are documented in
 ./pocket-tts --server --port 8080
 ```
 
+On this Mac the server runs permanently as launchd agent `com.tristan.local-tts`
+on port **8081** (`launchd/com.tristan.local-tts.plist` owns the port and
+paths; `launchd/install.sh` installs it). The thin client `cli/local-tts`
+(`local-tts "text" --play`, `--list`, `--health`) talks to it. Restart after a
+rebuild with `launchctl kickstart -k gui/$(id -u)/com.tristan.local-tts`.
+
 Endpoints:
 - `POST /v1/audio/speech` — OpenAI-compatible TTS (JSON body: `{"input": "...", "voice": "..."}`)
 - `POST /tts` — streaming TTS (JSON body: `{"text": "...", "voice": "..."}`)
 - `GET /health` — health check
 
-The `/v1/audio/speech` endpoint is compatible with the OpenAI TTS API. Any client that supports OpenAI's TTS (SillyTavern, Open WebUI, etc.) can use PocketTTS.cpp as a drop-in replacement by pointing the base URL to `http://localhost:8080`. The `model` and `speed` fields are accepted but ignored. Supported `response_format` values are `wav` (default) and `pcm`.
+The `/v1/audio/speech` endpoint is compatible with the OpenAI TTS API. Any client that supports OpenAI's TTS (SillyTavern, Open WebUI, etc.) can use Local TTS as a drop-in replacement by pointing the base URL to `http://localhost:8080`. The `model` and `speed` fields are accepted but ignored. Supported `response_format` values are `wav` (default) and `pcm`.
 
 ```bash
 curl -X POST http://localhost:8080/v1/audio/speech \
@@ -208,7 +213,7 @@ ptt_destroy(tts);
 
 ## Caching
 
-PocketTTS uses two layers of disk caching, both stored under `voices/.cache/`:
+The runtime uses two layers of disk caching, both stored under `voices/.cache/`:
 
 **Voice embeddings (`.emb`)** — The output of the Mimi encoder for each voice sample. Avoids re-encoding the same WAV file on every run. Generated automatically on first use.
 

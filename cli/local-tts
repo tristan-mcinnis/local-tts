@@ -1,10 +1,14 @@
 #!/bin/bash
-# local-tts — thin client for the Local TTS service (127.0.0.1:8081, on-device)
+# local-tts — thin client for the Local TTS service (on-device, nothing uploaded)
 # Part of the local-models layer: one registry, warm services, thin clients.
+# Port and voices dir mirror launchd/com.tristan.local-tts.plist (the source of
+# truth); the voices dir is resolved from this script's real location so the
+# symlink on PATH keeps working if the repo moves.
 set -euo pipefail
 
+REPO="$(cd "$(dirname "$(readlink -f "$0")")/.." && pwd)"
 BASE="${LOCAL_TTS_URL:-http://127.0.0.1:8081}"
-VOICES_DIR="${LOCAL_TTS_VOICES_DIR:-$HOME/Documents/code/local-tts/voices}"
+VOICES_DIR="${LOCAL_TTS_VOICES_DIR:-$REPO/voices}"
 VOICE="${LOCAL_TTS_VOICE:-vctk-p225.wav}"
 OUT=""
 PLAY=0
@@ -67,7 +71,7 @@ PAYLOAD="$(TEXT="$TEXT" VOICE="$VOICE" python3 -c \
 
 if ! curl -sf -X POST "$BASE/v1/audio/speech" -H "Content-Type: application/json" \
      -d "$PAYLOAD" --output "$OUT"; then
-  die "synthesis failed — is the service up? try: local-tts --health, or
+  die "synthesis failed. Is the service up? try: local-tts --health, or
   launchctl kickstart -k gui/\$(id -u)/com.tristan.local-tts"
 fi
 

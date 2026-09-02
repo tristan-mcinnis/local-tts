@@ -1,6 +1,6 @@
-# PocketTTS.cpp Runbook
+# Local TTS Runbook
 
-How to build, run, test, and verify this optimized PocketTTS fork.
+How to build, run, test, and verify the Local TTS runtime.
 Generic upstream usage lives in [../README.md](../README.md); the full
 optimization history and model-regeneration details live in
 [OPTIMIZATION_NOTES.md](OPTIMIZATION_NOTES.md). This runbook uses the public
@@ -38,7 +38,7 @@ backend on macOS for A/B testing.
 
 ## Run
 
-### Recommended flags (M4 Max, alongside the game)
+### Recommended flags (M4 Max)
 
 ```bash
 ./pocket-tts \
@@ -67,6 +67,13 @@ Notes:
   work, never for production speech.
 
 ### Server mode
+
+The always-on service on this Mac is `launchd/com.tristan.local-tts.plist`
+(label `com.tristan.local-tts`, port 8081, weights `~/Models/pocket-tts`,
+voices `voices/`, logs `~/Library/Logs/local-tts*.log`). Install with
+`launchd/install.sh`; restart with
+`launchctl kickstart -k gui/$(id -u)/com.tristan.local-tts`. Change port or
+paths there only; `cli/local-tts` mirrors them. A manual server for A/B work:
 
 ```bash
 ./pocket-tts --server --port 8080 \

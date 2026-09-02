@@ -16,13 +16,8 @@ pocket-tts
 
 # Model bundle lives in the shared store (~/Models/pocket-tts); models/ is a
 # machine-local symlink there. Regenerate with tools/prepare_models.sh.
+# Weights are never committed; the symlink itself is ignored too.
 /models
-
-# ONNX models (too large for git — download from HuggingFace)
-models/*.onnx
-
-# Tokenizer model (bundled with ONNX models)
-models/tokenizer.model
 
 # Voice samples (except the shipped example)
 voices/*
@@ -32,9 +27,6 @@ voices/*
 
 # Python virtual environment
 .venv/
-
-# Export script weight cache
-models/.cache/
 
 # Editor / OS
 .vscode/
