@@ -29,7 +29,8 @@ cmake -B .build -DCMAKE_BUILD_TYPE=Release && cmake --build .build -j
 ./tools/prepare_models.sh          # one-time; --web for the webdemo model set
 ./pocket-tts "Hello." example.wav out.wav
 local-tts --health                 # service check
-(cd webdemo && npm ci && npm test) # tokenizer test; xfer/engine need generated fixtures
+ctest --test-dir .build          # native smoke render; skipped if weights missing
+(cd webdemo && npm ci && npm test) # tokenizer always; xfer/engine skip until `npm run fixtures`
 ```
 
 - Needs CMake 3.28+, C++17, `uv` for model scripts, Node for webdemo tests.
@@ -38,6 +39,10 @@ local-tts --health                 # service check
   them; use it when the launchd service is running from the root binary.
 - After a rebuild the service keeps the old binary until restarted:
   `launchctl kickstart -k gui/$(id -u)/com.tristan.local-tts`.
+- `tests/smoke.sh` is the ctest target (one render from `voices/example.wav`,
+  WAV header check, exit 77 = skipped without weights). `webdemo/test/run.mjs`
+  runs the three Node tests and skips the two that need the web model set
+  plus fixtures from `webdemo/test/gen_fixtures.sh` (deterministic, temp 0).
 - `docs/RUNBOOK.md` has smoke tests, benchmarking rules, and model verification
   (`tools/verify_model_equivalence.py`). `docs/OPTIMIZATION_NOTES.md` has the
   optimization history.

@@ -58,9 +58,19 @@ repo only, behaviour unchanged, launchd service untouched (label and port kept).
 
 ## Left
 
-- Two `webdemo` tests need generated fixtures; documented, not wired.
 - Deleting the two Python files diverges from upstream; a future
   `git merge upstream/main` will show modify/delete on them if upstream edits
   them. Resolve by keeping them deleted.
-- No native test target. A `--health` + one-sentence render script would be
-  the next cheap gate if wanted.
+
+## Closed later the same day
+
+- `webdemo/test/run.mjs` is now `npm test`: tokenizer always runs; xfer and
+  engine skip with a printed reason when the web model set or the generated
+  fixtures are missing. `npm run fixtures` (`test/gen_fixtures.sh`) regenerates
+  the fixtures deterministically at temperature 0; it needs the web model
+  weights, so it is not run on a clean checkout. Generated fixture binaries
+  are gitignored. Result: 1 passed, 2 skipped, 0 failed.
+- Native `ctest` target `smoke` (`tests/smoke.sh`): renders one sentence from
+  `voices/example.wav` and checks the RIFF/WAVE header; exit 77 = skipped when
+  `models/` has no bundle. Verified on a scratch `PTT_OUTPUT_DIR` build:
+  passed, 238124-byte WAV; skip path verified against an empty dir.

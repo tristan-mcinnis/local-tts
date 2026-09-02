@@ -68,3 +68,8 @@ webdemo/wasm/build-relaxed/
 
 # ship one sample voice so examples work out of the box
 !voices/example.wav
+
+# Generated webdemo test fixtures (npm run fixtures)
+webdemo/test/xfer_states.bin
+webdemo/test/ref_latents.f32
+webdemo/test/ref_audio.f32

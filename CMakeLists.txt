@@ -262,6 +262,15 @@ if(BUILD_SHARED_LIB)
 endif()
 
 # =============================================================================
+# Tests (ctest): one native smoke render; skipped when the model bundle is absent
+# =============================================================================
+enable_testing()
+add_test(NAME smoke
+    COMMAND ${CMAKE_SOURCE_DIR}/tests/smoke.sh $<TARGET_FILE:pocket-tts>
+            ${CMAKE_SOURCE_DIR}/models ${CMAKE_SOURCE_DIR}/voices)
+set_tests_properties(smoke PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 300)
+
+# =============================================================================
 # Summary
 # =============================================================================
 message(STATUS "")

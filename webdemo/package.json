@@ -4,7 +4,8 @@
   "type": "module",
   "description": "PocketTTS in the browser: voice cloning + speech on onnxruntime-web",
   "scripts": {
-    "test": "node test/tokenizer.test.mjs && node test/xfer.test.mjs && node test/engine.test.mjs",
+    "test": "node test/run.mjs",
+    "fixtures": "bash test/gen_fixtures.sh",
     "serve": "python3 serve.py"
   },
   "devDependencies": {
