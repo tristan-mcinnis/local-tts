@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/tristan/Documents/code/house/local-tts/.claude/hooks/design-stop.sh",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/design-stop.sh",
             "timeout": 10
           }
         ]
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/tristan/Documents/code/house/local-tts/.claude/hooks/design-post-tool.sh",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/design-post-tool.sh",
             "timeout": 10
           }
         ]
