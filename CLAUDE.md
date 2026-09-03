@@ -78,3 +78,12 @@ ctest --test-dir .build          # native smoke render; skipped if weights missi
   `THIRD_PARTY_NOTICES.md` (lame.js is LGPL). License MIT.
 - Responsible use: only clone voices you own or have consent to use. Never
   present synthetic audio as a genuine recording. Upstream model terms apply.
+
+## Runtime layout (2026-09-03)
+
+The launchd job never reads from this repo. `scripts/install-runtime.sh`
+copies `pocket-tts` and its dylibs to `~/.local/libexec/local-tts/`, the
+voices to `~/Models/pocket-tts/voices/`, and the plist from `launchd/` into
+`~/Library/LaunchAgents/`. Reason: a launchd process gets no Files-and-Folders
+consent dialog, so a binary or dylib under `~/Documents` blocks silently at
+start. Re-run the script after rebuilding `pocket-tts` or adding a voice.
