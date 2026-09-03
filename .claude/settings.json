@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tristan/Documents/code/house/local-tts/.claude/hooks/design-stop.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tristan/Documents/code/house/local-tts/.claude/hooks/design-post-tool.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
