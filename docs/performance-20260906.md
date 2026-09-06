@@ -151,8 +151,9 @@ WAVs are **not** committed.
 
 ## Results
 
-Ran both phases on the M4 Max (this binary build, `--temperature 0 --profile`,
-voice caches preserved). Every config completed n=7 measured samples per phase;
+Ran both phases on the Apple M5 MacBook Pro (10 cores, 32 GB RAM, macOS
+26.5.2), using the installed binary with `--temperature 0 --profile` and
+voice caches preserved. Every config completed n=7 measured samples per phase;
 all WAVs validated (float32, mono, 24 kHz, finite, non-empty). Sanitized raw
 evidence — every per-run metric and the exact args — is committed at
 `docs/performance/20260906/{screen,long}.json` (no WAV audio, no WAV/output
