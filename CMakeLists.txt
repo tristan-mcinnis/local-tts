@@ -270,6 +270,14 @@ add_test(NAME smoke
             ${CMAKE_SOURCE_DIR}/models ${CMAKE_SOURCE_DIR}/voices)
 set_tests_properties(smoke PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 300)
 
+# Loopback-only bind regression: start --server and require the listener is
+# 127.0.0.1 (not all-interface) and owned by the spawned pid. Skips (77) without
+# the model bundle, like smoke.
+add_test(NAME smoke_bind
+    COMMAND ${CMAKE_SOURCE_DIR}/tests/smoke_bind.sh $<TARGET_FILE:pocket-tts>
+            ${CMAKE_SOURCE_DIR}/models ${CMAKE_SOURCE_DIR}/voices)
+set_tests_properties(smoke_bind PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 300)
+
 # =============================================================================
 # Summary
 # =============================================================================

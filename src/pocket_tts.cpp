@@ -3398,7 +3398,10 @@ public:
         
         sockaddr_in addr{};
         addr.sin_family = AF_INET;
-        addr.sin_addr.s_addr = INADDR_ANY;
+        // Local-only service: bind to loopback, never all interfaces. The
+        // probe/harness relies on this to guarantee no request reaches a LAN
+        // peer, and lsof-based ownership checks confirm 127.0.0.1 at runtime.
+        addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
         addr.sin_port = htons(port_);
         
         if (bind(server_fd_, (sockaddr*)&addr, sizeof(addr)) < 0) {
@@ -3411,7 +3414,7 @@ public:
             return false;
         }
         
-        std::cout << "TTS Server listening on http://localhost:" << port_ << "\n";
+        std::cout << "TTS Server listening on http://127.0.0.1:" << port_ << std::endl;
         std::cout << "Endpoints:\n";
         std::cout << "  POST /v1/audio/speech - OpenAI-compatible TTS (JSON: {\"input\": \"...\", \"voice\": \"...\"})\n";
         std::cout << "  POST /tts            - Streaming TTS (JSON: {\"text\": \"...\", \"voice\": \"...\"})\n";

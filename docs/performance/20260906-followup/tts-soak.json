@@ -1,0 +1,175 @@
+{
+  "schema": "local-tts-service-soak",
+  "generated_at": "2026-09-06T12:30:21+0800",
+  "binary": {
+    "path": "~/Documents/code/house/local-tts/pocket-tts",
+    "sha256": "22febd35ee3fd5fb5c10661f21c3aed28706dac38516fb17e6e9605b613da369",
+    "size_bytes": 1556952
+  },
+  "isolation": {
+    "port": 64917,
+    "bind_host_expected": "127.0.0.1",
+    "bind_loopback_required": true,
+    "listener_confirmed": {
+      "ok": true,
+      "reason": null,
+      "required": true,
+      "listeners": [
+        {
+          "pid": 93823,
+          "host": "127.0.0.1"
+        }
+      ],
+      "host": "127.0.0.1",
+      "pid": 93823,
+      "expected_pid": 93823
+    },
+    "prod_port_never_touched": 8081,
+    "models_dir": "~/Models/pocket-tts",
+    "tokenizer": "~/Models/pocket-tts/tokenizer.model",
+    "source_voices": "~/Models/pocket-tts/voices",
+    "temp_voices_dir": "/tmp/house-soak-20260906/voices",
+    "voice_caches_in_temp": true,
+    "deviation_flags_passed": []
+  },
+  "config": {
+    "base_phrase": "This is a periodic memory probe of the local TTS service. It should stay clear and steady.",
+    "text_mode": "varied",
+    "text_strategy": {
+      "mode": "varied",
+      "warmup": "fixed base phrase",
+      "measured": "base phrase + deterministic request number (fresh AR generation each request)",
+      "note": "varied text keeps output length ~constant (short template) so the run stays bounded; audio duration/latency are NOT cross-comparable across differing output lengths (trend only)."
+    },
+    "voice": "example.wav",
+    "warmup_requests": 3,
+    "total_measured_requests": 100,
+    "checkpoints": [
+      10,
+      50,
+      100
+    ],
+    "max_seconds": 900.0,
+    "request_timeout_secs": 60.0,
+    "start_timeout_secs": 120.0,
+    "ready_poll_secs": 0.25,
+    "term_grace_secs": 10.0,
+    "keep_alive": true,
+    "server_timeout_secs": 60.0,
+    "output_dir": "/tmp/house-soak-20260906"
+  },
+  "server_cmd": {
+    "argv": [
+      "~/Documents/code/house/local-tts/pocket-tts",
+      "--server",
+      "--port",
+      "64917",
+      "--models-dir",
+      "~/Models/pocket-tts",
+      "--tokenizer",
+      "~/Models/pocket-tts/tokenizer.model",
+      "--voices-dir",
+      "/tmp/house-soak-20260906/voices"
+    ],
+    "server_flags": [
+      "--server"
+    ],
+    "forbidden_flags_present": []
+  },
+  "complete": true,
+  "memory_samples": [
+    {
+      "label": "baseline",
+      "count": 0,
+      "wall_s": 1.407,
+      "mem": {
+        "rss_kb": 1232736,
+        "vsz_kb": 436468704,
+        "footprint_kb": 1214464,
+        "physical_kb": 1214464,
+        "peak_kb": 1214464,
+        "source": "footprint+rss"
+      }
+    },
+    {
+      "label": "checkpoint_10",
+      "count": 10,
+      "wall_s": 4.251,
+      "mem": {
+        "rss_kb": 1233968,
+        "vsz_kb": 436468704,
+        "footprint_kb": 1215488,
+        "physical_kb": 1215488,
+        "peak_kb": 1215488,
+        "source": "footprint+rss"
+      }
+    },
+    {
+      "label": "checkpoint_50",
+      "count": 50,
+      "wall_s": 16.048,
+      "mem": {
+        "rss_kb": 1234512,
+        "vsz_kb": 436468704,
+        "footprint_kb": 1216512,
+        "physical_kb": 1216512,
+        "peak_kb": 1216512,
+        "source": "footprint+rss"
+      }
+    },
+    {
+      "label": "checkpoint_100",
+      "count": 100,
+      "wall_s": 30.645,
+      "mem": {
+        "rss_kb": 637808,
+        "vsz_kb": 435875344,
+        "footprint_kb": 584704,
+        "physical_kb": 584704,
+        "peak_kb": 1216512,
+        "source": "footprint+rss"
+      }
+    }
+  ],
+  "memory_slope_segments": [
+    {
+      "from_label": "baseline",
+      "to_label": "checkpoint_10",
+      "from_count": 0,
+      "to_count": 10,
+      "physical_kb_per_req": 102.4,
+      "rss_kb_per_req": 123.2,
+      "requests": 10
+    },
+    {
+      "from_label": "checkpoint_10",
+      "to_label": "checkpoint_50",
+      "from_count": 10,
+      "to_count": 50,
+      "physical_kb_per_req": 25.6,
+      "rss_kb_per_req": 13.6,
+      "requests": 40
+    },
+    {
+      "from_label": "checkpoint_50",
+      "to_label": "checkpoint_100",
+      "from_count": 50,
+      "to_count": 100,
+      "physical_kb_per_req": -12636.16,
+      "rss_kb_per_req": -11934.08,
+      "requests": 50
+    }
+  ],
+  "requests": {
+    "total": 100,
+    "ok": 100,
+    "failed": 0,
+    "timeouts": 0,
+    "http_errors": [],
+    "timing_caveat": "per-request audio length varies with text; duration/latency medians are trend information only, NOT a per-second fairness comparison (the memory probe is not a throughput benchmark).",
+    "duration_s_median": 6.182,
+    "latency_s_median": 0.286
+  },
+  "wall_secs": 30.681091917009326,
+  "note": "Memory slope is recorded as evidence, NOT a leak verdict. Early growth between baseline and the first checkpoint is the voice cache (.emb/.kv) plus first-render warm and is expected; a plateau afterwards is the healthy signal. The measured phase uses a deterministic varied text (base phrase + request number) so the probe exercises fresh AR generation rather than replaying one cached key \u2014 this is a footprint trend, not a guarantee of no leaks. A sustained positive slope across every segment is the thing to investigate, ideally against a no-request idle control."
+}
