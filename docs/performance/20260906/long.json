@@ -1,0 +1,747 @@
+{
+  "schema": "local-tts-thread-benchmark (sanitized)",
+  "phase": "long",
+  "generated_at": "2026-09-06T11:03:00+0800",
+  "binary": {
+    "path": "~/.local/libexec/local-tts/pocket-tts",
+    "sha256": "caac345dc74955351b5acb44f9348025279bc7eb53383fae2d0d278c92850d26",
+    "size_bytes": 1556920
+  },
+  "config": {
+    "configs": [
+      "auto",
+      "2/2/4",
+      "3/2/2",
+      "2/1/2"
+    ],
+    "phrases": [
+      "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences."
+    ],
+    "voice": "example.wav",
+    "models_dir": "~/Models/pocket-tts",
+    "voices_dir": "~/Models/pocket-tts/voices",
+    "tokenizer": "~/Models/pocket-tts/tokenizer.model",
+    "base_flags": [
+      "--temperature",
+      "0",
+      "--profile"
+    ],
+    "extra_flags": [],
+    "warmup": 1,
+    "samples": 7,
+    "seed": 1,
+    "timeout_secs": 120.0,
+    "interleaved": true
+  },
+  "thread_specs": {
+    "auto": {
+      "flags": [],
+      "spec": null
+    },
+    "2/2/4": {
+      "flags": [
+        "--threads-ar",
+        "2",
+        "--threads-dec",
+        "2",
+        "--threads-full",
+        "4"
+      ],
+      "spec": [
+        2,
+        2,
+        4
+      ]
+    },
+    "3/2/2": {
+      "flags": [
+        "--threads-ar",
+        "3",
+        "--threads-dec",
+        "2",
+        "--threads-full",
+        "2"
+      ],
+      "spec": [
+        3,
+        2,
+        2
+      ]
+    },
+    "2/1/2": {
+      "flags": [
+        "--threads-ar",
+        "2",
+        "--threads-dec",
+        "1",
+        "--threads-full",
+        "2"
+      ],
+      "spec": [
+        2,
+        1,
+        2
+      ]
+    }
+  },
+  "complete": true,
+  "partial": [],
+  "results": {
+    "auto": {
+      "config": "auto",
+      "spec": null,
+      "samples_reported": 7,
+      "complete": true,
+      "metrics": {
+        "rtfx": {
+          "median": 25.17,
+          "min": 24.26,
+          "max": 25.84,
+          "n": 7
+        },
+        "first_chunk_ms": {
+          "median": 21.0,
+          "min": 20.0,
+          "max": 24.0,
+          "n": 7
+        },
+        "load_secs": {
+          "median": 0.18,
+          "min": 0.17,
+          "max": 0.18,
+          "n": 7
+        },
+        "wall_secs": {
+          "median": 0.6040335419820622,
+          "min": 0.5951912919990718,
+          "max": 0.616539541981183,
+          "n": 7
+        }
+      }
+    },
+    "2/2/4": {
+      "config": "2/2/4",
+      "spec": [
+        2,
+        2,
+        4
+      ],
+      "samples_reported": 7,
+      "complete": true,
+      "metrics": {
+        "rtfx": {
+          "median": 26.05,
+          "min": 25.0,
+          "max": 26.6,
+          "n": 7
+        },
+        "first_chunk_ms": {
+          "median": 21.0,
+          "min": 20.0,
+          "max": 22.0,
+          "n": 7
+        },
+        "load_secs": {
+          "median": 0.17,
+          "min": 0.17,
+          "max": 0.18,
+          "n": 7
+        },
+        "wall_secs": {
+          "median": 0.5905097910144832,
+          "min": 0.5808696249732748,
+          "max": 0.615182209003251,
+          "n": 7
+        }
+      }
+    },
+    "3/2/2": {
+      "config": "3/2/2",
+      "spec": [
+        3,
+        2,
+        2
+      ],
+      "samples_reported": 7,
+      "complete": true,
+      "metrics": {
+        "rtfx": {
+          "median": 25.3,
+          "min": 24.88,
+          "max": 25.73,
+          "n": 7
+        },
+        "first_chunk_ms": {
+          "median": 22.0,
+          "min": 20.0,
+          "max": 25.0,
+          "n": 7
+        },
+        "load_secs": {
+          "median": 0.17,
+          "min": 0.17,
+          "max": 0.18,
+          "n": 7
+        },
+        "wall_secs": {
+          "median": 0.6011415829998441,
+          "min": 0.5930204580072314,
+          "max": 0.6131747500039637,
+          "n": 7
+        }
+      }
+    },
+    "2/1/2": {
+      "config": "2/1/2",
+      "spec": [
+        2,
+        1,
+        2
+      ],
+      "samples_reported": 7,
+      "complete": true,
+      "metrics": {
+        "rtfx": {
+          "median": 21.14,
+          "min": 20.82,
+          "max": 21.42,
+          "n": 7
+        },
+        "first_chunk_ms": {
+          "median": 25.0,
+          "min": 24.0,
+          "max": 25.0,
+          "n": 7
+        },
+        "load_secs": {
+          "median": 0.18,
+          "min": 0.17,
+          "max": 0.18,
+          "n": 7
+        },
+        "wall_secs": {
+          "median": 0.6846565830055624,
+          "min": 0.6756440000026487,
+          "max": 0.6960503339942079,
+          "n": 7
+        }
+      }
+    }
+  },
+  "runs": [
+    {
+      "config": "auto",
+      "kind": "warmup",
+      "index": 0,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "auto-warmup-0",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.11,
+      "first_chunk_ms": 22.0,
+      "load_secs": 0.19,
+      "wall_secs": 0.6187954999913927,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "2/2/4",
+      "kind": "warmup",
+      "index": 0,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_2_4-warmup-0",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.83,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.5936762499914039,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "3/2/2",
+      "kind": "warmup",
+      "index": 0,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "3_2_2-warmup-0",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 23.91,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.631228167010704,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "2/1/2",
+      "kind": "warmup",
+      "index": 0,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_1_2-warmup-0",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 21.05,
+      "first_chunk_ms": 25.0,
+      "load_secs": 0.18,
+      "wall_secs": 0.6930473749816883,
+      "audio_duration_s": 10.45
+    },
+    {
+      "config": "2/1/2",
+      "kind": "sample",
+      "index": 2,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_1_2-sample-2",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 21.29,
+      "first_chunk_ms": 24.0,
+      "load_secs": 0.18,
+      "wall_secs": 0.6833695420064032,
+      "audio_duration_s": 10.45
+    },
+    {
+      "config": "2/1/2",
+      "kind": "sample",
+      "index": 5,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_1_2-sample-5",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 21.24,
+      "first_chunk_ms": 25.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.6813803749973886,
+      "audio_duration_s": 10.45
+    },
+    {
+      "config": "2/2/4",
+      "kind": "sample",
+      "index": 4,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_2_4-sample-4",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 26.05,
+      "first_chunk_ms": 22.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.5926552090095356,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "2/2/4",
+      "kind": "sample",
+      "index": 3,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_2_4-sample-3",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.0,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.18,
+      "wall_secs": 0.615182209003251,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "2/1/2",
+      "kind": "sample",
+      "index": 1,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_1_2-sample-1",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 21.14,
+      "first_chunk_ms": 25.0,
+      "load_secs": 0.18,
+      "wall_secs": 0.6886488750169519,
+      "audio_duration_s": 10.455
+    },
+    {
+      "config": "auto",
+      "kind": "sample",
+      "index": 1,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "auto-sample-1",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.14,
+      "first_chunk_ms": 20.0,
+      "load_secs": 0.18,
+      "wall_secs": 0.6119393749977462,
+      "audio_duration_s": 10.45
+    },
+    {
+      "config": "auto",
+      "kind": "sample",
+      "index": 5,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "auto-sample-5",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 24.26,
+      "first_chunk_ms": 24.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.616539541981183,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "2/1/2",
+      "kind": "sample",
+      "index": 6,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_1_2-sample-6",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 20.82,
+      "first_chunk_ms": 25.0,
+      "load_secs": 0.18,
+      "wall_secs": 0.6923003749980126,
+      "audio_duration_s": 10.45
+    },
+    {
+      "config": "3/2/2",
+      "kind": "sample",
+      "index": 5,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "3_2_2-sample-5",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.61,
+      "first_chunk_ms": 23.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.5961612499959301,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "2/2/4",
+      "kind": "sample",
+      "index": 6,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_2_4-sample-6",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.99,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.5905097910144832,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "2/2/4",
+      "kind": "sample",
+      "index": 2,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_2_4-sample-2",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 26.04,
+      "first_chunk_ms": 20.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.5915231249819044,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "3/2/2",
+      "kind": "sample",
+      "index": 3,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "3_2_2-sample-3",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 24.88,
+      "first_chunk_ms": 20.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.6111605829792097,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "3/2/2",
+      "kind": "sample",
+      "index": 2,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "3_2_2-sample-2",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.3,
+      "first_chunk_ms": 22.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.6011415829998441,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "auto",
+      "kind": "sample",
+      "index": 0,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "auto-sample-0",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.49,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.60266533299,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "2/2/4",
+      "kind": "sample",
+      "index": 0,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_2_4-sample-0",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 26.6,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.5808696249732748,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "2/1/2",
+      "kind": "sample",
+      "index": 0,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_1_2-sample-0",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 20.83,
+      "first_chunk_ms": 25.0,
+      "load_secs": 0.18,
+      "wall_secs": 0.6960503339942079,
+      "audio_duration_s": 10.455
+    },
+    {
+      "config": "auto",
+      "kind": "sample",
+      "index": 6,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "auto-sample-6",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.84,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.18,
+      "wall_secs": 0.5951912919990718,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "2/2/4",
+      "kind": "sample",
+      "index": 5,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_2_4-sample-5",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 26.13,
+      "first_chunk_ms": 20.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.5889105829992332,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "3/2/2",
+      "kind": "sample",
+      "index": 6,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "3_2_2-sample-6",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 24.94,
+      "first_chunk_ms": 25.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.6129217499983497,
+      "audio_duration_s": 10.45
+    },
+    {
+      "config": "3/2/2",
+      "kind": "sample",
+      "index": 0,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "3_2_2-sample-0",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.7,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.18,
+      "wall_secs": 0.5974480829900131,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "3/2/2",
+      "kind": "sample",
+      "index": 1,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "3_2_2-sample-1",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 24.93,
+      "first_chunk_ms": 24.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.6131747500039637,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "auto",
+      "kind": "sample",
+      "index": 3,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "auto-sample-3",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.23,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.18,
+      "wall_secs": 0.6040335419820622,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "2/2/4",
+      "kind": "sample",
+      "index": 1,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_2_4-sample-1",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 26.37,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.5835851249867119,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "auto",
+      "kind": "sample",
+      "index": 2,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "auto-sample-2",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.12,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.603699790983228,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "2/1/2",
+      "kind": "sample",
+      "index": 3,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_1_2-sample-3",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 21.06,
+      "first_chunk_ms": 25.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.6846565830055624,
+      "audio_duration_s": 10.455
+    },
+    {
+      "config": "2/1/2",
+      "kind": "sample",
+      "index": 4,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "2_1_2-sample-4",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 21.42,
+      "first_chunk_ms": 25.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.6756440000026487,
+      "audio_duration_s": 10.455
+    },
+    {
+      "config": "3/2/2",
+      "kind": "sample",
+      "index": 4,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "3_2_2-sample-4",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.73,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.17,
+      "wall_secs": 0.5930204580072314,
+      "audio_duration_s": 10.445
+    },
+    {
+      "config": "auto",
+      "kind": "sample",
+      "index": 4,
+      "phrase": "The morning meeting begins at nine. Please bring the research notes and leave enough time for questions. This longer local test checks that clear speech remains consistent across several sentences.",
+      "label": "auto-sample-4",
+      "ok": true,
+      "timeout": false,
+      "exit_code": 0,
+      "error": null,
+      "rtfx": 25.17,
+      "first_chunk_ms": 21.0,
+      "load_secs": 0.18,
+      "wall_secs": 0.6051470420206897,
+      "audio_duration_s": 10.445
+    }
+  ],
+  "sanitized": "no WAV audio, no WAV/output paths, no home-directory paths; per-run args are in config.thread_specs + config.base_flags",
+  "wav_validation": "every sample WAV validated as IEEE-float32, mono, 24 kHz, non-empty, all-finite (see run.audio_duration_s; wav_ok removed here)"
+}
