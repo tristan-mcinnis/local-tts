@@ -15,12 +15,15 @@ and the TTS organ of the local-models layer. Nothing is uploaded, ever.
   `POST /v1/audio/speech`, streaming `POST /tts`, `GET /health`.
 - Weights: `~/Models/pocket-tts/` (registered in `~/Models/models.json` as
   `pocket-tts`, alias `tts`). `models/` is a machine-local symlink there.
-- Voices: `voices/` (only `example.wav` is tracked). Caches in `voices/.cache/`.
+- Voices: the service reads `~/Models/pocket-tts/voices/` (caches in its
+  `.cache/`). The repo's `voices/` is the source `scripts/install-runtime.sh`
+  copies there (only `example.wav` is tracked).
 - Logs: `~/Library/Logs/local-tts.log` and `local-tts.err.log`.
 - Thin client `cli/local-tts` (on PATH via `~/.local/bin`); it reads the same
   port and voices dir, overridable with `LOCAL_TTS_URL` / `LOCAL_TTS_VOICES_DIR`.
-- Install or refresh the agent with `launchd/install.sh`. The binary default
-  port is 8080; the plist sets 8081. Change the port or paths in the plist only.
+- Install or refresh the agent with `scripts/install-runtime.sh`
+  (`launchd/install.sh` calls it). The binary default port is 8080; the plist
+  sets 8081. Change the port or paths in the plist only.
 
 ## Build, run, test
 
@@ -36,9 +39,10 @@ ctest --test-dir .build          # native smoke render; skipped if weights missi
 - Needs CMake 3.28+, C++17, `uv` for model scripts, Node for webdemo tests.
 - Build outputs land in the repo root (`pocket-tts`, `libptt_custom_ops.dylib`,
   `libonnxruntime*.dylib`), all gitignored. `-DPTT_OUTPUT_DIR=<dir>` redirects
-  them; use it when the launchd service is running from the root binary.
-- After a rebuild the service keeps the old binary until restarted:
-  `launchctl kickstart -k gui/$(id -u)/com.tristan.local-tts`.
+  them. The service never runs the root binary (see Runtime layout).
+- After a rebuild the service keeps running the old copy in
+  `~/.local/libexec/local-tts/` until `scripts/install-runtime.sh` copies the
+  new one and reloads the job; `launchctl kickstart -k` alone reruns the old copy.
 - `tests/smoke.sh` is the ctest target (one render from `voices/example.wav`,
   WAV header check, exit 77 = skipped without weights). `webdemo/test/run.mjs`
   runs the three Node tests and skips the two that need the web model set

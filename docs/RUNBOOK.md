@@ -70,10 +70,11 @@ Notes:
 
 The always-on service on this Mac is `launchd/com.tristan.local-tts.plist`
 (label `com.tristan.local-tts`, port 8081, weights `~/Models/pocket-tts`,
-voices `voices/`, logs `~/Library/Logs/local-tts*.log`). Install with
-`launchd/install.sh`; restart with
-`launchctl kickstart -k gui/$(id -u)/com.tristan.local-tts`. Change port or
-paths there only; `cli/local-tts` mirrors them. A manual server for A/B work:
+voices `~/Models/pocket-tts/voices`, logs `~/Library/Logs/local-tts*.log`).
+It runs the copy in `~/.local/libexec/local-tts/`. Install, or refresh after a
+rebuild, with `scripts/install-runtime.sh`; `launchctl kickstart -k
+gui/$(id -u)/com.tristan.local-tts` only restarts the copy already there.
+Change port or paths there only; `cli/local-tts` mirrors them. A manual server for A/B work:
 
 ```bash
 ./pocket-tts --server --port 8080 \

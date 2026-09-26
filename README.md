@@ -162,9 +162,12 @@ changes. `webdemo/models/README.md` lists what the web set contains. The rewrite
 
 On this Mac the server runs permanently as launchd agent `com.tristan.local-tts`
 on port **8081** (`launchd/com.tristan.local-tts.plist` owns the port and
-paths; `launchd/install.sh` installs it). The thin client `cli/local-tts`
-(`local-tts "text" --play`, `--list`, `--health`) talks to it. Restart after a
-rebuild with `launchctl kickstart -k gui/$(id -u)/com.tristan.local-tts`.
+paths). It runs a copy of the binary in `~/.local/libexec/local-tts/` and reads
+voices from `~/Models/pocket-tts/voices/`, because a launchd job may not read
+`~/Documents`; `scripts/install-runtime.sh` refreshes that copy, the voices and
+the plist, so rerun it after a rebuild (a plain `launchctl kickstart` reruns the
+old copy). The thin client `cli/local-tts` (`local-tts "text" --play`,
+`--list`, `--health`) talks to it.
 
 Endpoints:
 - `POST /v1/audio/speech` — OpenAI-compatible TTS (JSON body: `{"input": "...", "voice": "..."}`)
