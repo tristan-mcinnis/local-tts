@@ -285,6 +285,14 @@ add_test(NAME smoke_errors
             ${CMAKE_SOURCE_DIR}/models ${CMAKE_SOURCE_DIR}/voices)
 set_tests_properties(smoke_errors PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 300)
 
+# A /tts client that stops reading is dropped after --send-timeout, so the
+# synthesis mutex is freed and later requests still answer. Skips (77) without
+# the model bundle.
+add_test(NAME smoke_stall
+    COMMAND ${CMAKE_SOURCE_DIR}/tests/smoke_stall.sh $<TARGET_FILE:pocket-tts>
+            ${CMAKE_SOURCE_DIR}/models ${CMAKE_SOURCE_DIR}/voices)
+set_tests_properties(smoke_stall PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 300)
+
 # =============================================================================
 # Summary
 # =============================================================================

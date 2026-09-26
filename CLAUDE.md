@@ -43,10 +43,12 @@ ctest --test-dir .build          # native smoke render; skipped if weights missi
 - After a rebuild the service keeps running the old copy in
   `~/.local/libexec/local-tts/` until `scripts/install-runtime.sh` copies the
   new one and reloads the job; `launchctl kickstart -k` alone reruns the old copy.
-- ctest runs three scripts, each exit 77 = skipped without weights:
+- ctest runs four scripts, each exit 77 = skipped without weights:
   `tests/smoke.sh` (one render from `voices/example.wav`, WAV header check),
-  `tests/smoke_bind.sh` (listener is 127.0.0.1 only) and `tests/smoke_errors.sh`
-  (error bodies stay valid JSON). `webdemo/test/run.mjs`
+  `tests/smoke_bind.sh` (listener is 127.0.0.1 only), `tests/smoke_errors.sh`
+  (error bodies stay valid JSON) and `tests/smoke_stall.sh` (a `/tts` client
+  that stops reading is dropped after `--send-timeout`, default 30 s, so the
+  synthesis lock is freed). `webdemo/test/run.mjs`
   runs the three Node tests and skips the two that need the web model set
   plus fixtures from `webdemo/test/gen_fixtures.sh` (deterministic, temp 0).
 - `docs/RUNBOOK.md` has smoke tests, benchmarking rules, and model verification

@@ -262,6 +262,7 @@ voices.
 | `--profile` | — | Print per-operation timing report after generation |
 | `--server` | — | Start HTTP server mode |
 | `--port` | `8080` | Server port |
+| `--send-timeout` | `30` | Seconds a client socket may accept no bytes before the server drops it (0 = never). Frees the synthesis lock from a `/tts` client that stopped reading |
 
 The table above covers the common flags; run `./pocket-tts --help` for
 the complete list (thread overrides, leading-trim gate tuning, chunk

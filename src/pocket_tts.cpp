@@ -3378,6 +3378,10 @@ static std::string json_escape(const std::string& s) {
 class TTSServer {
     PocketTTS& tts_;
     int port_;
+    // Bound on one send() that makes no progress. /tts streams while holding
+    // tts_mutex_, so a client that stays connected but stops reading would
+    // otherwise block send() forever and wedge every later request.
+    int send_timeout_sec_;
     ptt_socket_t server_fd_ = PTT_INVALID_SOCKET;
     std::mutex tts_mutex_;
     std::mutex conns_mutex_;
@@ -3391,7 +3395,8 @@ class TTSServer {
         "Connection: keep-alive\r\nKeep-Alive: timeout=60\r\n";
 
 public:
-    TTSServer(PocketTTS& tts, int port) : tts_(tts), port_(port) {}
+    TTSServer(PocketTTS& tts, int port, int send_timeout_sec = 30)
+        : tts_(tts), port_(port), send_timeout_sec_(send_timeout_sec) {}
     
     ~TTSServer() {
         if (server_fd_ != PTT_INVALID_SOCKET && server_fd_ == g_server_fd) {
@@ -3501,6 +3506,21 @@ private:
         tv.tv_usec = 0;
         setsockopt(client_fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
 #endif
+
+        // Send timeout: a send() that moves no bytes for this long fails, so
+        // ptt_send returns false, the stream aborts, and tts_mutex_ is freed.
+        // A client reading at playback pace never stalls a send this long.
+        if (send_timeout_sec_ > 0) {
+#ifdef _WIN32
+            DWORD stv = DWORD(send_timeout_sec_) * 1000;
+            setsockopt(client_fd, SOL_SOCKET, SO_SNDTIMEO, (const char*)&stv, sizeof(stv));
+#else
+            struct timeval stv;
+            stv.tv_sec = send_timeout_sec_;
+            stv.tv_usec = 0;
+            setsockopt(client_fd, SOL_SOCKET, SO_SNDTIMEO, &stv, sizeof(stv));
+#endif
+        }
 
         std::string buf;
         while (g_server_running) {
@@ -4170,6 +4190,7 @@ int main(int argc, char* argv[]) {
     bool stdout_output = false;
     bool server_mode = false;
     int server_port = 8080;
+    int send_timeout_sec = 30;
     std::string text, voice, output;
     int pos = 0;
     bool first_chunk_set = false;
@@ -4221,7 +4242,8 @@ int main(int argc, char* argv[]) {
                 "  --profile                Show profiling report with first-chunk latency\n"
                 "\nServer mode:\n"
                 "  --server                 Start HTTP server (models prewarmed on startup)\n"
-                "  --port <port>            Server port (default: 8080)\n";
+                "  --port <port>            Server port (default: 8080)\n"
+                "  --send-timeout <sec>     Drop a client whose socket accepts no bytes for this long (default: 30, 0 = never)\n";
             return 0;
         }
         else if (a == "--precision") cfg.precision = next();
@@ -4262,6 +4284,7 @@ int main(int argc, char* argv[]) {
         else if (a == "--profile") pocket_tts::g_prof.enabled = true;
         else if (a == "--server") server_mode = true;
         else if (a == "--port") server_port = std::stoi(next());
+        else if (a == "--send-timeout") send_timeout_sec = std::max(0, std::stoi(next()));
         else if (a[0] == '-') { std::cerr << "Unknown: " << a << "\n"; return 1; }
         else { if (pos == 0) text = a; else if (pos == 1) voice = a; else if (pos == 2) output = a; pos++; }
     }
@@ -4305,7 +4328,7 @@ int main(int argc, char* argv[]) {
             signal(SIGPIPE, SIG_IGN);
 #endif
             
-            pocket_tts::TTSServer server(tts, server_port);
+            pocket_tts::TTSServer server(tts, server_port, send_timeout_sec);
             if (!server.start()) return 1;
             server.run();
         }
