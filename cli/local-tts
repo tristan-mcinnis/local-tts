@@ -2,13 +2,13 @@
 # local-tts — thin client for the Local TTS service (on-device, nothing uploaded)
 # Part of the local-models layer: one registry, warm services, thin clients.
 # Port and voices dir mirror launchd/com.tristan.local-tts.plist (the source of
-# truth); the voices dir is resolved from this script's real location so the
-# symlink on PATH keeps working if the repo moves.
+# truth): the service reads its voices from ~/Models/pocket-tts/voices, so that
+# is what --list shows. The repo's voices/ is only the source that
+# scripts/install-runtime.sh copies there.
 set -euo pipefail
 
-REPO="$(cd "$(dirname "$(readlink -f "$0")")/.." && pwd)"
 BASE="${LOCAL_TTS_URL:-http://127.0.0.1:8081}"
-VOICES_DIR="${LOCAL_TTS_VOICES_DIR:-$REPO/voices}"
+VOICES_DIR="${LOCAL_TTS_VOICES_DIR:-$HOME/Models/pocket-tts/voices}"
 VOICE="${LOCAL_TTS_VOICE:-vctk-p225.wav}"
 OUT=""
 PLAY=0
@@ -35,8 +35,9 @@ options:
 
 env overrides: LOCAL_TTS_URL, LOCAL_TTS_VOICE, LOCAL_TTS_VOICES_DIR
 
-Add a voice: drop a 6-15s clean single-speaker WAV into the voices dir and
-pass --voice <name>. Only use voices you own or have consent to use.
+Add a voice: drop a 6-15s clean single-speaker WAV into
+~/Models/pocket-tts/voices (the dir the service reads) and pass --voice <name>.
+Only use voices you own or have consent to use.
 EOF
 }
 
