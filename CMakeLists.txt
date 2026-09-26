@@ -278,6 +278,13 @@ add_test(NAME smoke_bind
             ${CMAKE_SOURCE_DIR}/models ${CMAKE_SOURCE_DIR}/voices)
 set_tests_properties(smoke_bind PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 300)
 
+# Error bodies stay valid JSON when the exception text holds a quote (a voice
+# name the caller sent). Skips (77) without the model bundle.
+add_test(NAME smoke_errors
+    COMMAND ${CMAKE_SOURCE_DIR}/tests/smoke_errors.sh $<TARGET_FILE:pocket-tts>
+            ${CMAKE_SOURCE_DIR}/models ${CMAKE_SOURCE_DIR}/voices)
+set_tests_properties(smoke_errors PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 300)
+
 # =============================================================================
 # Summary
 # =============================================================================

@@ -3349,6 +3349,32 @@ static std::string json_get_string(const std::string& json, const std::string& k
     return result;
 }
 
+// Escape a string for a JSON string literal. Error bodies carry exception
+// text, which can hold the caller's own voice name (quotes included) or a
+// path, and a raw quote there made the whole body invalid JSON.
+static std::string json_escape(const std::string& s) {
+    std::string out;
+    out.reserve(s.size() + 8);
+    for (unsigned char c : s) {
+        switch (c) {
+            case '"':  out += "\\\""; break;
+            case '\\': out += "\\\\"; break;
+            case '\n': out += "\\n"; break;
+            case '\r': out += "\\r"; break;
+            case '\t': out += "\\t"; break;
+            default:
+                if (c < 0x20) {
+                    char buf[8];
+                    snprintf(buf, sizeof(buf), "\\u%04x", c);
+                    out += buf;
+                } else {
+                    out += static_cast<char>(c);
+                }
+        }
+    }
+    return out;
+}
+
 class TTSServer {
     PocketTTS& tts_;
     int port_;
@@ -3698,7 +3724,7 @@ private:
                     std::cout << "  Stream error: " << e.what() << "\n";
                     return false;
                 }
-                send_response(client_fd, 400, "application/json", "{\"error\":\"" + std::string(e.what()) + "\"}");
+                send_response(client_fd, 400, "application/json", "{\"error\":\"" + json_escape(e.what()) + "\"}");
             }
         }
         else if (req.method == "POST" && req.path == "/v1/audio/speech") {
@@ -3746,7 +3772,7 @@ private:
                 }
             } catch (const std::exception& e) {
                 send_response(client_fd, 400, "application/json",
-                    "{\"error\":{\"message\":\"" + std::string(e.what()) + "\",\"type\":\"server_error\"}}");
+                    "{\"error\":{\"message\":\"" + json_escape(e.what()) + "\",\"type\":\"server_error\"}}");
             }
         }
         else {
