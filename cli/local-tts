@@ -46,7 +46,8 @@ while [[ $# -gt 0 ]]; do
     -p|--play)  PLAY=1; shift ;;
     -v|--voice) VOICE="$2"; shift 2 ;;
     --list)     ls "$VOICES_DIR" 2>/dev/null | grep '\.wav$' | sed 's/\.wav$//' ; exit 0 ;;
-    --health)   curl -sf "$BASE/health" && echo; exit 0 ;;
+    --health)   curl -sf -m 3 "$BASE/health" && { echo; exit 0; }
+                die "no answer from $BASE/health" ;;
     -h|--help)  usage; exit 0 ;;
     -*)         die "unknown option: $1 (try --help)" ;;
     *)          TEXT_PARTS+=("$1"); shift ;;
