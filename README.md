@@ -8,6 +8,12 @@ bundle lives in `~/Models/pocket-tts/` and is registered in
 (launchd agent `com.tristan.local-tts`) with an OpenAI-compatible
 `/v1/audio/speech` endpoint. Nothing is uploaded, ever.
 
+Names: the repository is `local-tts` (GitHub `tristan-mcinnis/local-tts`); the
+engine binary is `pocket-tts` (upstream's name), installed at
+`~/.local/libexec/local-tts/`; the launchd job is `com.tristan.local-tts` on
+port 8081; the registry id is `pocket-tts` (alias `tts`); the thin client on
+PATH is `local-tts`.
+
 Forked from [pkalogiros/pocket-tts-raven](https://github.com/pkalogiros/pocket-tts-raven)
 (MIT), a heavily optimized runtime for [Kyutai's Pocket TTS](https://github.com/kyutai-labs/pocket-tts)
 on ONNX Runtime. All upstream credit goes to Pantelis Kalogiros and Kyutai
