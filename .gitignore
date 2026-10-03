@@ -75,3 +75,8 @@ webdemo/wasm/build-relaxed/
 webdemo/test/xfer_states.bin
 webdemo/test/ref_latents.f32
 webdemo/test/ref_audio.f32
+
+# Machine-local agent hooks and design-lint ratchet (reach into a sibling
+# design-system checkout; not part of the public repo)
+/.claude/
+/.design-lint-baseline.json
