@@ -166,6 +166,22 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_link_libraries(pocket-tts PRIVATE ws2_32)
 endif()
 
+# Find libonnxruntime next to the executable, never in the build tree. The
+# POST_BUILD step below copies the dylibs beside the binary, so the build-tree
+# run and any copied install (binary plus dylibs in one directory) both load.
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set(PTT_EXE_RPATH "@executable_path")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(PTT_EXE_RPATH "$ORIGIN")
+endif()
+if(PTT_EXE_RPATH)
+    set_target_properties(pocket-tts PROPERTIES
+        BUILD_RPATH "${PTT_EXE_RPATH}"
+        INSTALL_RPATH "${PTT_EXE_RPATH}"
+        BUILD_WITH_INSTALL_RPATH TRUE
+    )
+endif()
+
 # Copy ONNX runtime shared library next to outputs
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     add_custom_command(TARGET pocket-tts POST_BUILD
