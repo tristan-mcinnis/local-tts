@@ -55,6 +55,13 @@ ctest --test-dir .build          # native smoke render; skipped if weights missi
   synthesis lock is freed). `webdemo/test/run.mjs`
   runs the three Node tests and skips the two that need the web model set
   plus fixtures from `webdemo/test/gen_fixtures.sh` (deterministic, temp 0).
+- Release tarball: `scripts/make-release.sh` builds in `.build-release/` (arm64,
+  macOS 13.4 floor, repo-root binary untouched), signs ad hoc inside out, and
+  writes `local-tts-<version>-macos-arm64.tar.gz`, `SHA256SUMS` and
+  `RELEASE_NOTES.md` to `OUT_DIR` (default `dist/`). Version = CMake project
+  version. `scripts/verify-release.sh <tarball>` checks it without touching
+  your install. `scripts/release-install.sh` ships inside as `install.sh`.
+  No Apple Developer ID: the release is not notarized (README says so).
 - `docs/RUNBOOK.md` has smoke tests, benchmarking rules, and model verification
   (`tools/verify_model_equivalence.py`). `docs/OPTIMIZATION_NOTES.md` has the
   optimization history.

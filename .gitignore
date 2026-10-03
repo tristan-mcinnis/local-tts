@@ -83,3 +83,7 @@ webdemo/test/ref_audio.f32
 
 # Private scrub patterns (client names); read by tests/scrub.sh, never committed
 /.scrub-private
+
+# Release packaging output
+/.build-release/
+/dist/
