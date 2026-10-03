@@ -4,10 +4,11 @@
 #   ./tools/prepare_models.sh          # download originals + optimize -> models/
 #   ./tools/prepare_models.sh --web    # also copy the web set -> webdemo/models/
 #
-# Step 1 downloads the original Kyutai Pocket TTS ONNX bundle
-# (english_2026-04, ~165 MB) from Hugging Face. Every file is verified
-# against a pinned sha256, so the hosting mirror does not need to be
-# trusted. Step 2 applies this repo's deterministic graph rewrites. The
+# Step 1 downloads the Kyutai Pocket TTS ONNX bundle (english_2026-04,
+# ~165 MB) from Hugging Face: a third-party ONNX export of kyutai/pocket-tts
+# (KevinAHM/pocket-tts-onnx, CC BY 4.0). Every file is verified against a
+# pinned sha256, so the host does not need to be trusted. Kyutai's model
+# terms apply; see THIRD_PARTY_NOTICES.md. Step 2 applies this repo's deterministic graph rewrites. The
 # delta-KV rewrites run built-in ORT equivalence checks; use
 # tools/verify_model_equivalence.py for lockstep checks when changing or
 # staging other rewrites.
@@ -19,8 +20,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-# Original Kyutai ONNX bundle (a mirror of the official pocket-tts web
-# release; hash-pinned below). Override the source with BUNDLE_URL=...
+# Kyutai Pocket TTS ONNX bundle (third-party export, hash-pinned below).
+# Override the source with BUNDLE_URL=...
 BUNDLE_URL="${BUNDLE_URL:-https://huggingface.co/KevinAHM/pocket-tts-onnx/resolve/main/onnx/english_2026-04}"
 BUNDLE_FILES=(
     "tokenizer.model:d461765ae179566678c93091c5fa6f2984c31bbe990bf1aa62d92c64d91bc3f6"
