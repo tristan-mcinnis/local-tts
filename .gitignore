@@ -80,3 +80,6 @@ webdemo/test/ref_audio.f32
 # design-system checkout; not part of the public repo)
 /.claude/
 /.design-lint-baseline.json
+
+# Private scrub patterns (client names); read by tests/scrub.sh, never committed
+/.scrub-private

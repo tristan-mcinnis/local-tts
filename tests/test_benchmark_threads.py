@@ -42,7 +42,7 @@ class TestParseLog(unittest.TestCase):
         text = (
             'Loading (precision=int8, threads=5)...\n'
             '  Loaded in 0.23s\n'
-            'Generating: "hello" with /Users/tristan/Models/pocket-tts/voices/example.wav\n'
+            'Generating: "hello" with /Users/alice/Models/pocket-tts/voices/example.wav\n'
             '  First-chunk stages:\n'
             '    stream_start            0.000ms  +0.000ms\n'
             '  3.97s audio in 0.18s (RTFx: 22.45x)\n'

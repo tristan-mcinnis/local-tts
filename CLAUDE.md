@@ -43,7 +43,8 @@ ctest --test-dir .build          # native smoke render; skipped if weights missi
 - After a rebuild the service keeps running the old copy in
   `~/.local/libexec/local-tts/` until `scripts/install-runtime.sh` copies the
   new one and reloads the job; `launchctl kickstart -k` alone reruns the old copy.
-- ctest runs four scripts, each exit 77 = skipped without weights:
+- ctest runs `tests/scrub.sh` (publish scrub, see Boundaries) plus four
+  smoke scripts, each exit 77 = skipped without weights:
   `tests/smoke.sh` (one render from `voices/example.wav`, WAV header check),
   `tests/smoke_bind.sh` (listener is 127.0.0.1 only), `tests/smoke_errors.sh`
   (error bodies stay valid JSON) and `tests/smoke_stall.sh` (a `/tts` client
@@ -80,6 +81,9 @@ ctest --test-dir .build          # native smoke render; skipped if weights missi
 - Never commit weights, dylibs, the binary, voice caches, or personal voice
   samples. Model weights are shared-layer state, not repo state.
 - No secrets in the repo; there are none today and none are needed.
+- The repo is public. `tests/scrub.sh` (also a ctest) fails on home paths,
+  key shapes, and the private names listed in the gitignored `.scrub-private`
+  (one case-insensitive ERE per line). Never put client names in tracked files.
 - `origin` = tristan-mcinnis/local-tts (push to main on request).
   `upstream` = pkalogiros/pocket-tts-raven, read-only, for pulling improvements.
 - Attribution stays: README "Forked from" line and Acknowledgments, plus

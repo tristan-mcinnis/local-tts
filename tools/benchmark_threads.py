@@ -130,7 +130,7 @@ def normalize_text(text: str, home: str | None = None) -> str:
         rest = text[len(home):]
         if rest.startswith(os.sep):
             return "~" + rest
-        # e.g. exactly the home dir, or a prefix like /Users/tristanX
+        # e.g. exactly the home dir, or a prefix like /Users/aliceX
     return text
 
 

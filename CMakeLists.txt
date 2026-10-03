@@ -318,6 +318,13 @@ add_test(NAME smoke_stall
             ${CMAKE_SOURCE_DIR}/models ${CMAKE_SOURCE_DIR}/voices)
 set_tests_properties(smoke_stall PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 300)
 
+# Publish scrub: no home paths, key shapes or private names (from the
+# gitignored .scrub-private) in tracked files. Needs no weights.
+find_program(PTT_GIT git)
+if(PTT_GIT AND EXISTS ${CMAKE_SOURCE_DIR}/.git)
+    add_test(NAME scrub COMMAND ${CMAKE_SOURCE_DIR}/tests/scrub.sh)
+endif()
+
 # =============================================================================
 # Summary
 # =============================================================================
