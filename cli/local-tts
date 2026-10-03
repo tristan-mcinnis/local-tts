@@ -1,15 +1,15 @@
 #!/bin/bash
 # local-tts — thin client for the Local TTS service (on-device, nothing uploaded)
 # Part of the local-models layer: one registry, warm services, thin clients.
-# Port and voices dir mirror launchd/com.tristan.local-tts.plist (the source of
-# truth): the service reads its voices from ~/Models/pocket-tts/voices, so that
+# Port and voices dir mirror launchd/com.tristan.local-tts.plist.in (the source
+# of truth): the service reads its voices from ~/Models/pocket-tts/voices, so that
 # is what --list shows. The repo's voices/ is only the source that
 # scripts/install-runtime.sh copies there.
 set -euo pipefail
 
 BASE="${LOCAL_TTS_URL:-http://127.0.0.1:8081}"
 VOICES_DIR="${LOCAL_TTS_VOICES_DIR:-$HOME/Models/pocket-tts/voices}"
-VOICE="${LOCAL_TTS_VOICE:-vctk-p225.wav}"
+VOICE="${LOCAL_TTS_VOICE:-example.wav}"
 OUT=""
 PLAY=0
 TEXT_PARTS=()
@@ -29,7 +29,8 @@ usage:
 options:
   -o, --out FILE     output path (default: /tmp/local-tts-<epoch>.wav)
   -p, --play         play the result through the speakers (afplay)
-  -v, --voice NAME   voice sample from the voices dir (default: vctk-p225);
+  -v, --voice NAME   voice sample from the voices dir (default: example,
+                     the shipped sample);
                      bare names get .wav appended
   -h, --help         this help
 

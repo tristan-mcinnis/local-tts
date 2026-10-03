@@ -20,7 +20,7 @@ INT8 quantized (dynamic, MatMul only):
   5b. mimi_decoder_int8.onnx
 
 Usage:
-  cd ~/Desktop/pocket-tts
+  cd <your pocket-tts checkout>
   source .venv/bin/activate
 
   # Export + quantize + validate (default, outputs to ./models):
