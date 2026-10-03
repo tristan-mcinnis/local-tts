@@ -11,6 +11,10 @@ and the TTS organ of the local-models layer. Nothing is uploaded, ever.
 
 ## Service on this Mac (source of truth: `launchd/com.tristan.local-tts.plist.in`)
 
+The README stays generic for strangers; this machine's layout lives in
+`docs/personal-setup.md`. Keep both true.
+
+
 - launchd label `com.tristan.local-tts`, `127.0.0.1:8081`, OpenAI-compatible
   `POST /v1/audio/speech`, streaming `POST /tts`, `GET /health`.
 - Weights: `~/Models/pocket-tts/` (registered in `~/Models/models.json` as
@@ -86,7 +90,7 @@ ctest --test-dir .build          # native smoke render; skipped if weights missi
   (one case-insensitive ERE per line). Never put client names in tracked files.
 - `origin` = tristan-mcinnis/local-tts (push to main on request).
   `upstream` = pkalogiros/pocket-tts-raven, read-only, for pulling improvements.
-- Attribution stays: README "Forked from" line and Acknowledgments, plus
+- Attribution stays: README fork line and Credits section, plus
   `THIRD_PARTY_NOTICES.md` (lame.js is LGPL). License MIT.
 - Responsible use: only clone voices you own or have consent to use. Never
   present synthetic audio as a genuine recording. Upstream model terms apply.
