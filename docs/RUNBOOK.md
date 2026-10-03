@@ -68,8 +68,8 @@ Notes:
 
 ### Server mode
 
-The always-on service on this Mac is `launchd/com.tristan.local-tts.plist`
-(label `com.tristan.local-tts`, port 8081, weights `~/Models/pocket-tts`,
+The optional always-on service is the launchd template
+`launchd/com.tristan.local-tts.plist.in` (label `com.tristan.local-tts`, port 8081, weights `~/Models/pocket-tts`,
 voices `~/Models/pocket-tts/voices`, logs `~/Library/Logs/local-tts*.log`).
 It runs the copy in `~/.local/libexec/local-tts/`. Install, or refresh after a
 rebuild, with `scripts/install-runtime.sh`; `launchctl kickstart -k

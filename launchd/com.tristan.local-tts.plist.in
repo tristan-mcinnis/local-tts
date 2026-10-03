@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Local TTS service. Rendered by scripts/install-runtime.sh, which replaces
+     @HOME@ with your home directory. It runs the installed copy in
+     ~/.local/libexec/local-tts, never the repo, because launchd may be refused
+     ~/Documents. Change the port or paths here. -->
 <plist version="1.0">
 <dict>
 	<key>Label</key>
 	<string>com.tristan.local-tts</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/Users/tristan/.local/libexec/local-tts/pocket-tts</string>
+		<string>@HOME@/.local/libexec/local-tts/pocket-tts</string>
 		<string>--server</string>
 		<string>--port</string>
 		<string>8081</string>
 		<string>--models-dir</string>
-		<string>/Users/tristan/Models/pocket-tts</string>
+		<string>@HOME@/Models/pocket-tts</string>
 		<string>--voices-dir</string>
-		<string>/Users/tristan/Models/pocket-tts/voices</string>
+		<string>@HOME@/Models/pocket-tts/voices</string>
 		<string>--tokenizer</string>
-		<string>/Users/tristan/Models/pocket-tts/tokenizer.model</string>
+		<string>@HOME@/Models/pocket-tts/tokenizer.model</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
@@ -24,8 +28,8 @@
 	<key>ThrottleInterval</key>
 	<integer>5</integer>
 	<key>StandardOutPath</key>
-	<string>/Users/tristan/Library/Logs/local-tts.log</string>
+	<string>@HOME@/Library/Logs/local-tts.log</string>
 	<key>StandardErrorPath</key>
-	<string>/Users/tristan/Library/Logs/local-tts.err.log</string>
+	<string>@HOME@/Library/Logs/local-tts.err.log</string>
 </dict>
 </plist>

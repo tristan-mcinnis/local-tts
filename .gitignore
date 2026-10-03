@@ -13,6 +13,8 @@ pocket-tts
 *.dll
 *.lib
 *.exe
+# License texts the build copies next to libonnxruntime
+/third_party_licenses/
 
 # Model bundle lives in the shared store (~/Models/pocket-tts); models/ is a
 # machine-local symlink there. Regenerate with tools/prepare_models.sh.

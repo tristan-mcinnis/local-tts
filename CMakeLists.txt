@@ -195,6 +195,15 @@ else()
     )
 endif()
 
+# ONNX Runtime's MIT license and its third-party notices travel with the
+# copied library (gitignored; scripts/install-runtime.sh copies them too).
+add_custom_command(TARGET pocket-tts POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:pocket-tts>/third_party_licenses/onnxruntime
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${ONNXRUNTIME_ROOT}/LICENSE ${ONNXRUNTIME_ROOT}/ThirdPartyNotices.txt
+        $<TARGET_FILE_DIR:pocket-tts>/third_party_licenses/onnxruntime
+)
+
 # Custom-op shared library for python-side model verification (Apple-only ops)
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     add_library(ptt-custom-ops SHARED src/ptt_custom_ops.cpp)

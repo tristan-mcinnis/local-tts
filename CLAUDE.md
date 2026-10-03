@@ -6,10 +6,10 @@ Canonical project contract. `AGENTS.md` is a symlink to this file.
 
 On-device voice cloning and text-to-speech, faster than realtime on CPU: one
 C++ runtime (`src/pocket_tts.cpp`) around stock ONNX Runtime, plus a WASM build
-for the browser. Tristan's private fork of `pkalogiros/pocket-tts-raven` (MIT)
+for the browser. A public fork of `pkalogiros/pocket-tts-raven` (MIT)
 and the TTS organ of the local-models layer. Nothing is uploaded, ever.
 
-## Service on this Mac (source of truth: `launchd/com.tristan.local-tts.plist`)
+## Service on this Mac (source of truth: `launchd/com.tristan.local-tts.plist.in`)
 
 - launchd label `com.tristan.local-tts`, `127.0.0.1:8081`, OpenAI-compatible
   `POST /v1/audio/speech`, streaming `POST /tts`, `GET /health`.
