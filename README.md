@@ -75,7 +75,7 @@ Upstream demo: [pantel.is/projects/pocket-tts-raven](https://pantel.is/projects/
 
 ### Download
 
-Get the latest `.tar.gz` from the [Releases page](https://github.com/tristan-mcinnis/local-tts/releases/latest). It is for Apple Silicon Macs on macOS 13 or later. It holds the `pocket-tts` binary, ONNX Runtime, the `local-tts` client, an example voice and an installer. The model weights are not inside (CC BY 4.0); you download them once.
+Get the latest `.tar.gz` and `SHA256SUMS` from the [Releases page](https://github.com/tristan-mcinnis/local-tts/releases/latest). It is for Apple Silicon Macs on macOS 13 or later. It holds the `pocket-tts` binary, ONNX Runtime, the `local-tts` client, an example voice and an installer. The model weights are not inside (CC BY 4.0); you download them once.
 
 ```bash
 shasum -a 256 -c SHA256SUMS                        # check the download
@@ -89,10 +89,9 @@ pocket-tts "Hello from Local TTS." example.wav hello.wav
 
 Add `~/.local/bin` to your PATH if it is not there. The installer puts `pocket-tts` and `local-tts` in that folder.
 
-Local TTS is not notarized. It is a free project, and it has no paid Apple Developer ID. So macOS may block the first run. Only use the files if you downloaded them from the Releases page of this repository. If macOS blocks them, the `xattr` line above removes the quarantine flag. Each release is signed ad hoc. So macOS may ask again for permissions such as Accessibility or Microphone after an update. Grant them again when asked.
+Local TTS is not notarized. It is a free project, and it has no paid Apple Developer ID. So macOS may block the first run. Only use the files if you downloaded them from the Releases page of this repository. If macOS blocks a file, open System Settings, then Privacy & Security. Scroll down and click Open Anyway next to the blocked file. Confirm. Or run the `xattr` line above, which removes the quarantine flag. Each release is signed ad hoc. So macOS may ask again for permissions such as Accessibility or Microphone after an update. Grant them again when asked.
 
 ### Build from source
-
 
 ```bash
 git clone https://github.com/tristan-mcinnis/local-tts.git

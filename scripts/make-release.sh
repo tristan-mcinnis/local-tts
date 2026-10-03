@@ -171,7 +171,7 @@ pocket-tts "Hello from Local TTS." example.wav hello.wav
 
 ## First open
 
-These files are not notarized. Local TTS is a free project, and it has no paid Apple Developer ID. So macOS may block the first run. Only use the files if you downloaded them from the Releases page of this repository. If macOS blocks them, remove the quarantine flag after you extract:
+These files are not notarized. Local TTS is a free project, and it has no paid Apple Developer ID. So macOS may block the first run. Only use the files if you downloaded them from the Releases page of this repository. If macOS blocks a file, open System Settings, then Privacy & Security. Scroll down and click Open Anyway next to the blocked file. Confirm. Or remove the quarantine flag after you extract:
 
 \`\`\`sh
 xattr -dr com.apple.quarantine $NAME
