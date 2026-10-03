@@ -14,7 +14,6 @@ and the TTS organ of the local-models layer. Nothing is uploaded, ever.
 The README stays generic for strangers; this machine's layout lives in
 `docs/personal-setup.md`. Keep both true.
 
-
 - launchd label `com.tristan.local-tts`, `127.0.0.1:8081`, OpenAI-compatible
   `POST /v1/audio/speech`, streaming `POST /tts`, `GET /health`.
 - Weights: `~/Models/pocket-tts/` (registered in `~/Models/models.json` as
