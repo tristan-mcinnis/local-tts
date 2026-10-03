@@ -34,7 +34,14 @@ fi
 sed -e "s|@HOME@|$HOME|g" "$REPO/launchd/$LABEL.plist.in" > "$PLIST"
 plutil -lint "$PLIST" >/dev/null
 launchctl bootout "gui/$(id -u)/$LABEL" 2>/dev/null || true
-launchctl bootstrap "gui/$(id -u)" "$PLIST"
+# bootout returns before the job is gone; bootstrapping too soon fails with
+# "Bootstrap failed: 5" and leaves the service stopped. Wait, then retry once.
+for _ in $(seq 1 20); do
+  launchctl print "gui/$(id -u)/$LABEL" >/dev/null 2>&1 || break
+  sleep 0.5
+done
+launchctl bootstrap "gui/$(id -u)" "$PLIST" 2>/dev/null \
+  || { sleep 2; launchctl bootstrap "gui/$(id -u)" "$PLIST"; }
 for _ in $(seq 1 20); do
   curl -s --max-time 2 "http://127.0.0.1:$PORT/health" 2>/dev/null | grep -q ok && { echo "local-tts healthy"; exit 0; }
   sleep 2
