@@ -1,3 +1,5 @@
+> **Sunset 2026-10-18.** This project is no longer maintained and the repository is archived (read-only). local-tts was an on-device text-to-speech service. Unused, so the service was turned off on the author's Mac. The code stays here under its license for anyone who wants it.
+
 <p align="center">
   <img src="docs/icon.png" width="128" height="128" alt="Local TTS icon">
 </p>
